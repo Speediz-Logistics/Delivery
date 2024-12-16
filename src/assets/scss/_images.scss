@@ -1,0 +1,77 @@
+.#{$prefix}-image {
+  display: block;
+  align-self: center;
+  opacity: 1;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+
+  &-logo-primary {
+    width: 260px;
+    height: 84px;
+    background-repeat: no-repeat;
+    background-image: url("@/assets/images/speediz-logo.png");
+    z-index: 2;
+  }
+
+  &-logo {
+    width: 303px;
+    height: 95px;
+    background-repeat: no-repeat;
+    background-image: url("@/assets/images/speediz-logo.png");
+    transform: translate(-50%, -50%);
+    top: 10%;
+    left: 10%;
+    position: absolute;
+    z-index: 2;
+  }
+
+  &-background-splash {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("@/assets/images/BackgroundSplash.png");
+    z-index: 1;
+  }
+  &-vendor-homepage{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("@images/onBoardbg.png");
+    z-index: 1;
+  }
+  &-vendor-welcome {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("@/assets/images/VendorWelcome.png");
+    z-index: 1;
+  }
+  &-vendor-register-bg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("@/assets/images/vendorRegisterbg.png");
+    z-index: 1;
+  }
+}
