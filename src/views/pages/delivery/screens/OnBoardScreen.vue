@@ -26,33 +26,6 @@
     </nav>
   </header>
 
-  <div class="content-fade-in">
-    <img src="@/assets/images/heroContent.png" alt="hero-content">
-  </div>
-  <div>
-    <h1>Explore your service</h1>
-  </div>
-  <div class="content">
-    <div class="content-1">
-      <a>
-        <img src="@/assets/icon/content1.svg" alt="icon content1">
-      </a>
-      <p> Packages<br></br>Management</p>
-    </div>
-    <div class="content-2">
-      <a>
-        <img src="@/assets/icon/content2.svg" alt="icon content1">
-      </a>
-      <p> Packages <br></br>Tracking</p>
-    </div>
-    <div class="content-3">
-      <a>
-        <img src="@/assets/icon/content3.svg" alt="icon content1">
-      </a>
-      <p> Packages <br></br>Invoices</p>
-    </div>
-  </div>
-
 </template>
 
 <script setup>
