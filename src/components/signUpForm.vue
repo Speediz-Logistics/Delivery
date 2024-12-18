@@ -141,13 +141,15 @@ const handleRegister = async () => {
         const response = await authStore.register({
           email: form.email,
           password: form.password,
+          password_confirmation: form.password_confirmation,
           first_name: form.first_name,
           last_name: form.last_name,
-          business_name: form.business_name,
           dob: form.dob,
           gender: form.gender,
-          address: form.address,
+          driver_type: form.driver_type,
+          zone: form.zone,
           contact_number: form.contact_number,
+          telegram_contact: form.telegram_contact,
         });
         console.log('Form submitted!', response);
         router.push({name: 'default'});
