@@ -111,6 +111,7 @@ const form = reactive({
   zone: '',
   contact_number: '',
   telegram_contact: '',
+  driver_type: 'motorcycle'
 });
 
 const formRef = ref(null);
