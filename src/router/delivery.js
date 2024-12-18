@@ -19,9 +19,9 @@ export default [
         meta: { middlewares: [authenticated] },
       },
       {
-        path: 'register',
-        name: 'register',
-        component: () => import('@/views/pages/delivery/screens/RegisterScreen.vue'),
+        path: 'sign-up',
+        name: 'sign-up',
+        component: () => import('@/views/pages/delivery/screens/SignUp.vue'),
       },
       {
         path:'onboard-screen',

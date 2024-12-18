@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column align-content-center gap-4 content-fade-in login-form-card">
-    <h1 class="text-center">Please log in your account.</h1>
+    <h1 class="text-center color-gray">Login to access your best experience for delivery. </h1>
     <el-form
       ref="formRef"
       style="max-width: 600px"
@@ -8,6 +8,7 @@
       label-width="auto"
       class="demo-dynamic gap-4"
     >
+      <label for="email">Email</label>
       <el-form-item class prop="email" :rules="rules.email">
         <el-input
           v-model="dynamicValidateForm.email"
@@ -18,6 +19,7 @@
           :prefix-icon="Message"
         />
       </el-form-item>
+      <label for="password">Passoword</label>
       <el-form-item prop="password" :rules="rules.password">
         <el-input
           v-model="dynamicValidateForm.password"
@@ -38,13 +40,14 @@
         <el-button type="primary" v-on:click="handleLogin" class="input">Login</el-button>
       </el-form-item>
     </el-form>
-  </div>
-  <div class="d-flex">
-    <div>You don’t have an account yet ?,</div>
-    <div class="bg-transparent ms-2 primary-color cursor-pointer" @click="navigateTo({ name: 'register' })">
-      Sign Up Now
+    <div class="d-flex flex-column align-content-center justify-space-center text-center">
+      <div>You don’t have an account yet ?,</div>
+      <div class="bg-transparent ms-2 primary-color cursor-pointer" @click="handleSignUp({name: 'sign-up'})">
+        Sign Up Now
+      </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
@@ -111,6 +114,9 @@ const handleLogin = async () => {
 const forgotPassword = () => {
   router.push({ name: 'forgot-password' });
 };
+const handleSignUp = () =>{
+  router.push({name: 'sign-up'});
+}
 </script>
 
 <style scoped>
@@ -122,12 +128,18 @@ const forgotPassword = () => {
 .el-form-item .el-button {
   width: 100%;
 }
-
+h1{
+  font-size: 12px;
+  text-decoration: underline;
+}
 .el-button {
-  background: #ffbd59;
+  background: #2A2E30;
+  width: 290px;
+  height: 50px;
   justify-content: center;
   align-items: center;
   border: none;
+  border-radius: 20px;
   cursor: pointer;
 }
 
@@ -150,9 +162,10 @@ const forgotPassword = () => {
 
 .login-form-card {
   background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border: 0.5px solid #ffbd59;
+  border: none;
   padding: 20px;
+}
+label{
+  color: darkgrey;
 }
 </style>
