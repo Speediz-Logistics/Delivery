@@ -7,6 +7,9 @@ const navigateTo = (page) => {
     if(page === 'login'){
       router.push({name: 'login'});
     }
+    if(page === 'map'){
+      router.push({name: 'map'});
+    }
   }
 </script>
 
