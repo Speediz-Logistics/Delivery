@@ -24,6 +24,9 @@ const navigateTo = (page) => {
       <button @click="navigateTo('login')">
         Explore Now!
       </button>
+      <button @click="navigateTo('map')">
+        Explore Map!
+      </button>
     </div>
   </div>
 </template>
