@@ -33,6 +33,12 @@ export default [
         path: 'forgot-password',
         name: 'forgot-password',
         component: () => import('@/views/pages/delivery/screens/ForgetPassword.vue')
+      },
+      //map
+      {
+        path: 'map',
+        name: 'map',
+        component: () => import('@/views/pages/delivery/screens/Map.vue')
       }
     ],
   },

@@ -1,6 +1,7 @@
 <script setup>
 import { useMetaTag } from '@/composables/useMetaTag';
 import HomeIndex from '@/views/pages/home/index.vue';
+import Map from "@/components/Map.vue";
 
 // Set meta tags for SEO
 useMetaTag({
