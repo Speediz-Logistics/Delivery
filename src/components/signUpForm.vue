@@ -81,8 +81,8 @@
 
         <el-form-item prop="telegram_contact">
           <div class="d-flex flex-column w-100">
-            <label for="telegram_contact">Telegram Contact</label>
-            <el-input v-model="form.telegram_contact" placeholder="Enter your bank name"/>
+            <label for="telegram_contact">Telegram Link</label>
+            <el-input v-model="form.telegram_contact" placeholder="htttps://t.me/example"/>
           </div>
         </el-form-item>
 

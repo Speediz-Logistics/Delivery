@@ -33,6 +33,26 @@ export default [
         path: 'forgot-password',
         name: 'forgot-password',
         component: () => import('@/views/pages/delivery/screens/ForgetPassword.vue')
+      },
+      {
+        path:'express',
+        name: 'express',
+        component:() => import('@/views/pages/delivery/screens/express/index.vue')
+      },
+      {
+        path:"tracking-detail/:id",
+        name: 'tracking-detail',
+        component: () => import('@/views/pages/delivery/screens/express/detail/[id].vue')
+      },
+      {
+        path: 'history',
+        name: 'history',
+        component: () => import('@/views/pages/delivery/screens/history/index.vue')
+      },
+      {
+        path:'map',
+        name: 'map',
+        component: () => import('@/views/pages/delivery/screens/map/index.vue')
       }
     ],
   },
