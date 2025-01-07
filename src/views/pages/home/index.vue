@@ -7,6 +7,9 @@ const navigateTo = (page) => {
     if(page === 'login'){
       router.push({name: 'login'});
     }
+    if(page === 'map'){
+      router.push({name: 'map'});
+    }
   }
 </script>
 
@@ -23,6 +26,9 @@ const navigateTo = (page) => {
       <p>Our intelligent route planning software guarantees the optimal path for each delivery.</p>
       <button @click="navigateTo('login')">
         Explore Now!
+      </button>
+      <button @click="navigateTo('map')">
+        Explore Map!
       </button>
     </div>
   </div>

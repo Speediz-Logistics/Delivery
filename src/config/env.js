@@ -1,4 +1,4 @@
-const { VITE_PREFIX, VITE_TITLE, VITE_LOCALE, VITE_API_BASE_URL, APP_API_ACESS_KEY } = import.meta.env;
+const { VITE_PREFIX, VITE_TITLE, VITE_LOCALE, VITE_API_BASE_URL, APP_API_ACESS_KEY, APP_MAP_BOX_TOKEN } = import.meta.env;
 
 export default class ENV {
   static get APP_PREFIX() {
@@ -15,5 +15,8 @@ export default class ENV {
   }
   static get APP_API_ACESS_KEY() {
     return APP_API_ACESS_KEY;
+  }
+  static get APP_MAP_BOX_TOKEN() {
+    return APP_MAP_BOX_TOKEN;
   }
 }

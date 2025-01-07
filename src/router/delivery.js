@@ -49,10 +49,11 @@ export default [
         name: 'history',
         component: () => import('@/views/pages/delivery/screens/history/index.vue')
       },
+      //map
       {
-        path:'map',
+        path: 'map',
         name: 'map',
-        component: () => import('@/views/pages/delivery/screens/map/index.vue')
+        component: () => import('@/views/pages/delivery/screens/Map.vue')
       }
     ],
   },
