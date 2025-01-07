@@ -13,7 +13,7 @@
      </div>
    </div>
    <div>
-     <input placeholder="Enter package number"/>
+     <input v-model="searchQuery" placeholder="Enter package number" @keyup.enter="handleSearch"/>
    </div>
    <div class="navigate d-flex justify-content-center align-items-center gap-3">
      <Button class="text-center w-25" @click="handleExpress">
@@ -65,32 +65,40 @@
 </template>
 
 <script setup>
-import {useRouter} from 'vue-router'
-import {useHomeStore} from "@/store/home.js";
-import {ref, onMounted} from "vue";
+import { useRouter } from 'vue-router';
+import { useHomeStore } from "@/store/home.js";
+import { ref, onMounted, computed } from "vue";
 
-const router = useRouter()
-
-const handleExpress = () => {
-  router.push({name: 'express'})
-}
-const handleHistory = () => {
-  router.push({name: 'history'})
-}
-const handleMap = () => {
-  router.push({name: 'map'})
-}
-const dataList = ref([])
+const router = useRouter();
+const searchQuery = ref("");
+const dataList = ref([]);
 const filteredData = ref([]); // Filtered data to display
 const homeStore = useHomeStore();
 const currentStatus = ref("all");
-// Fetch package data from API
-const fetchPackage = async () => {
+const currentPage = ref(1);
+
+// Navigation handlers
+const handleExpress = () => {
+  router.push({ name: 'express' });
+};
+const handleHistory = () => {
+  router.push({ name: 'history' });
+};
+const handleMap = () => {
+  router.push({ name: 'map' });
+};
+
+// Fetch package data from API with optional search query
+const fetchPackage = async (page = 1, search = "") => {
   try {
-    const response = await homeStore.fetchPackage();
-    // Extract the array of packages from the API response
-    dataList.value = response.data?.packages?.data || [];
-    filteredData.value = [...dataList.value];
+    const params = {
+      page,
+      search: search || searchQuery.value, // Pass the search query
+    };
+
+    const response = await homeStore.fetchPackage(params); // Ensure fetchPackage accepts params
+    dataList.value = response.data?.packages?.data || []; // Extract the array of packages
+    filteredData.value = [...dataList.value]; // Reset filtered data
   } catch (error) {
     console.error("Failed to fetch package data:", error);
   }
@@ -111,14 +119,22 @@ const filterByStatus = (status) => {
   }
 };
 
+// Search handler
+const handleSearch = () => {
+  fetchPackage(1, searchQuery.value); // Fetch data with search query starting at page 1
+};
 
 // Handle page change
 const handlePageChange = (page) => {
   currentPage.value = page;
-}
+  fetchPackage(page, searchQuery.value); // Fetch data for the selected page with the current search query
+};
+
+// Initialize data on mount
 onMounted(() => {
   fetchPackage();
 });
+
 </script>
 
 <style scoped lang="scss">

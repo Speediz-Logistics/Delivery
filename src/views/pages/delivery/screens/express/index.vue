@@ -8,10 +8,15 @@ const store = useExpressStore();
 const data = ref([]);
 const currentPage = ref(1);
 const totalPages = ref(1);
+const searchQuery = ref("")
 
-const fetchExpress = async (page = 1) => {
+const fetchExpress = async (page=1, search)     => {
   try {
-    const response = await store.fetchExpress(page);
+    const params = {
+      page,
+      search: search?? searchQuery.value,
+    };
+    const response = await store.fetchExpress(params);
     if (response && response.data) {
       data.value = response.data.data[Object.keys(response.data.data)[0]]; // Access data dynamically
       totalPages.value = response.data.last_page; // Set the total number of pages
@@ -22,7 +27,10 @@ const fetchExpress = async (page = 1) => {
     console.error("Error fetching express data:", error);
   }
 };
-
+// Search handler
+const handleSearch = () => {
+  fetchExpress(1, searchQuery.value); // Fetch data with search query starting at page 1
+};
 //backhome
 const backTo = () => {
   router.push({name: 'onboard-Screen'})
@@ -30,7 +38,7 @@ const backTo = () => {
 
 //viewDetail
 const handleTracking = (id) => {
-  router.push({name: 'tracking-detail', params: { id }})
+  router.push({name: 'map', params: { id }})
 }
 
 onMounted(() => {
@@ -48,7 +56,7 @@ onMounted(() => {
   </div>
   <!-- Input Section -->
   <div class="input-section">
-    <input placeholder="Enter package number" class="input-field" />
+    <input v-model="searchQuery" placeholder="Enter package number" class="input-field" @keyup.enter="handleSearch"/>
   </div>
   <!-- Package Information Section -->
   <div class="express-container">

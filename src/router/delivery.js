@@ -40,18 +40,13 @@ export default [
         component:() => import('@/views/pages/delivery/screens/express/index.vue')
       },
       {
-        path:"tracking-detail/:id",
-        name: 'tracking-detail',
-        component: () => import('@/views/pages/delivery/screens/express/detail/[id].vue')
-      },
-      {
         path: 'history',
         name: 'history',
         component: () => import('@/views/pages/delivery/screens/history/index.vue')
       },
       //map
       {
-        path: 'map',
+        path: 'map/:id',
         name: 'map',
         component: () => import('@/views/pages/delivery/screens/Map.vue')
       }

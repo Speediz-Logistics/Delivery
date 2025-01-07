@@ -35,14 +35,6 @@ const props = defineProps({
     type: Number,
     default: 0, // Default longitude
   },
-  title: {
-    type: String,
-    default: 'Delivery Details', // Default title
-  },
-  content: {
-    type: String,
-    default: 'Your order is on the way!', // Default content
-  },
 });
 
 const { APP_MAP_BOX_TOKEN } = useEnv(); // Fetching the Mapbox token
@@ -50,10 +42,6 @@ const mapboxToken = APP_MAP_BOX_TOKEN; // Mapbox access token
 
 const toggleOffcanvas = () => {
   offcanvasRef.value.show(); // Call showOffcanvas method
-  offcanvasRef.value.updateContent({
-    title: props.title,
-    content: props.content,
-  }); // Update the title
 };
 
 onMounted(() => {
