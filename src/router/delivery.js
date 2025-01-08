@@ -34,9 +34,19 @@ export default [
         name: 'forgot-password',
         component: () => import('@/views/pages/delivery/screens/ForgetPassword.vue')
       },
+      {
+        path:'express',
+        name: 'express',
+        component:() => import('@/views/pages/delivery/screens/express/index.vue')
+      },
+      {
+        path: 'history',
+        name: 'history',
+        component: () => import('@/views/pages/delivery/screens/history/index.vue')
+      },
       //map
       {
-        path: 'map',
+        path: 'map/:id',
         name: 'map',
         component: () => import('@/views/pages/delivery/screens/Map.vue')
       }
