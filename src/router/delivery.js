@@ -44,6 +44,11 @@ export default [
         name: 'history',
         component: () => import('@/views/pages/delivery/screens/history/index.vue')
       },
+      {
+        path: 'history-detail/:id',
+        name: 'history-detail',
+        component: () => import('@/views/pages/delivery/screens/history/detail/[id].vue')
+      },
       //map
       {
         path: 'map/:id',
