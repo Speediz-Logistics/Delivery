@@ -23,8 +23,14 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions.css';
 import useEnv from '../composables/useEnv.js';
 import MapOffcanvas from '@/components/MapOffcanvas.vue';
+import { useTrackingStore } from '@/store/tracking.js';
+import {useRoute} from "vue-router";
+
+const { post } = useTrackingStore();
 
 const offcanvasRef = ref(null); // Reference to MapOffcanvas
+const route = useRoute();
+const id = route.params.id;
 
 const props = defineProps({
   lat: {
@@ -44,7 +50,22 @@ const toggleOffcanvas = () => {
   offcanvasRef.value.show(); // Call showOffcanvas method
 };
 
-onMounted(() => {
+const postTracking = async (data) => {
+  try {
+    const param = {
+      package_id: id,
+      lat: data.lat ?? 0,
+      lng: data.lng ?? 0,
+    };
+    console.log('Tracking data:', param);
+    const response = await post(param);
+    return response;
+  } catch (error) {
+    console.error('Error fetching location:', error);
+  }
+};
+
+onMounted(async () => {
   mapboxgl.accessToken = mapboxToken;
 
   // Initialize Mapbox map
@@ -84,11 +105,6 @@ onMounted(() => {
 
   map.addControl(directions, 'top-left');
 
-  map.on('click', (e) => {
-    // Update the destination (Point B) when the user clicks on the map
-    directions.setDestination([e.lngLat.lng, e.lngLat.lat]);
-  });
-
   // Ensure directions are set after control is added to the map
   map.on('load', () => {
     // Set the destination (Point B) from props (default values)
@@ -114,15 +130,20 @@ onMounted(() => {
 
   // Optional: If you want to get the user's location directly without geolocation control:
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      marker.setLngLat([longitude, latitude]); // Set the marker at the current location
-      map.setCenter([longitude, latitude]); // Optionally, center the map on the user's location
-      map.setZoom(14); // Optionally, zoom in for a closer view
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        marker.setLngLat([longitude, latitude]);
+        map.setCenter([longitude, latitude]);
+        map.setZoom(14);
 
-      // Set the origin for directions after the marker position is updated
-      directions.setOrigin([longitude, latitude]);
-    });
+        await postTracking({ lat: latitude, lng: longitude });
+      },
+      (error) => {
+        console.error('Geolocation error:', error);
+        alert('Failed to get location. Please enable GPS.');
+      }
+    );
   } else {
     console.log('Geolocation is not supported by this browser.');
   }
