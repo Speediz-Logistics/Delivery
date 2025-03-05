@@ -51,6 +51,11 @@ export default [
       },
       //map
       {
+        path: 'map',
+        name: 'map-index',
+        component: () => import('@/views/pages/delivery/screens/map/index.vue')
+      },
+      {
         path: 'map/:id',
         name: 'map',
         component: () => import('@/views/pages/delivery/screens/Map.vue')
