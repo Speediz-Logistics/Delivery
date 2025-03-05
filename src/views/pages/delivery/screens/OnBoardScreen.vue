@@ -4,8 +4,8 @@
      <div class="d-flex flex-row align-items-center justify-content-between gap-3">
        <img src="@/assets/images/speediz-logo.png" alt="profile">
        <div>
-         <div>Name:</div>
-         <div>Address:</div>
+         <div>Name: {{ data.driver_name }}</div>
+         <div class="address-text my-2">Address: {{ currentLocation }}</div>
        </div>
      </div>
      <div>
@@ -68,6 +68,7 @@
 import { useRouter } from 'vue-router';
 import { useHomeStore } from "@/store/home.js";
 import { ref, onMounted, computed } from "vue";
+import axios from "axios";
 
 const router = useRouter();
 const searchQuery = ref("");
@@ -76,6 +77,8 @@ const filteredData = ref([]); // Filtered data to display
 const homeStore = useHomeStore();
 const currentStatus = ref("all");
 const currentPage = ref(1);
+const data = ref([]);
+const currentLocation = ref("Fetching location...");
 
 // Navigation handlers
 const handleExpress = () => {
@@ -85,7 +88,7 @@ const handleHistory = () => {
   router.push({ name: 'history' });
 };
 const handleMap = () => {
-  router.push({ name: 'map' });
+  router.push({ name: 'map-index' });
 };
 
 // Fetch package data from API with optional search query
@@ -98,6 +101,7 @@ const fetchPackage = async (page = 1, search = "") => {
 
     const response = await homeStore.fetchPackage(params); // Ensure fetchPackage accepts params
     dataList.value = response.data?.packages?.data || []; // Extract the array of packages
+    data.value = response.data; // Set data for offcanvas
     filteredData.value = [...dataList.value]; // Reset filtered data
   } catch (error) {
     console.error("Failed to fetch package data:", error);
@@ -130,14 +134,49 @@ const handlePageChange = (page) => {
   fetchPackage(page, searchQuery.value); // Fetch data for the selected page with the current search query
 };
 
+const getCurrentLocation = () => {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        await reverseGeocode(latitude, longitude);
+      },
+      (error) => {
+        console.error("Error fetching location:", error);
+        currentLocation.value = "Location access denied";
+      }
+    );
+  } else {
+    currentLocation.value = "Geolocation not supported";
+  }
+};
+
+const reverseGeocode = async (lat, lon) => {
+  try {
+    const response = await axios.get(
+      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`
+    );
+    currentLocation.value = response.data.display_name || "Unknown location";
+  } catch (error) {
+    console.error("Error with reverse geocoding:", error);
+    currentLocation.value = "Failed to retrieve location";
+  }
+};
+
+
 // Initialize data on mount
 onMounted(() => {
   fetchPackage();
+  getCurrentLocation();
 });
 
 </script>
 
 <style scoped lang="scss">
+.address-text {
+  font-size: 12px;
+  color: #555;
+}
 .screen {
   display: flex;
   flex-direction: column;
