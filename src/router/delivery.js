@@ -21,7 +21,7 @@ export default [
       {
         path: 'logout',
         name: 'logout',
-        component: () => import('@/views/pages/delivery/screen/Logout.vue'),
+        component: () => import('@/views/pages/delivery/screens/Logout.vue'),
       },
       {
         path: 'sign-up',
