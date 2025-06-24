@@ -19,6 +19,11 @@ export default [
         meta: { middlewares: [authenticated] },
       },
       {
+        path: 'logout',
+        name: 'logout',
+        component: () => import('@/views/pages/delivery/screen/Logout.vue'),
+      },
+      {
         path: 'sign-up',
         name: 'sign-up',
         component: () => import('@/views/pages/delivery/screens/SignUp.vue'),
