@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="d-flex flex-column content rounded-4 p-4 text-center">
-      <img src="@/assets/images/speediz-logo2.png" alt="logo project" class="mb-3" />
+      <img src="@/assets/images/speediz-logo.png" alt="logo project" class="mb-3" />
       <h1 class="fw-bold mt-3">Logout</h1>
       <p>Are you sure you want to logout?</p>
       <div class="d-flex justify-content-center gap-3 mt-3">
