@@ -88,7 +88,7 @@ onMounted(() => {
 
       <!-- Location -->
       <div class="info-row pb-3">
-        <span class="label">Location: {{info.location.location}}</span>
+        <span class="label">Location: {{info.location?.location}}</span>
       </div>
 
       <!-- View Details Button -->
