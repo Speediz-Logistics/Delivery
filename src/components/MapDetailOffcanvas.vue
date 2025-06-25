@@ -1,33 +1,33 @@
 <script setup>
-import {Offcanvas} from "bootstrap";
-import {onMounted, onUnmounted, ref, reactive} from 'vue';
-import { useRoute, useRouter } from "vue-router";
-import {useMapStore} from "@/store/map.js";
+import { Offcanvas } from 'bootstrap';
+import { onMounted, onUnmounted, ref, reactive } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useMapStore } from '@/store/map.js';
 const store = useMapStore();
-const data = ref({})
+const data = ref({});
 const route = useRoute();
-const router = useRouter()
+const router = useRouter();
 const offcanvasRef = ref();
 let bsOffcanvas = null;
 const id = ref(0);
 
 const props = defineProps({
-  id: {type: String, default: 'offcanvas'}, // Default id as 'offcanvas'
+  id: { type: String, default: 'offcanvas' }, // Default id as 'offcanvas'
 });
 
 const isPickedUp = ref(false);
 
 const pickup = async () => {
   isPickedUp.value = true; // Disable "Pick up" and show "Complete"
-  await store.pickup({id: id});
+  await store.pickup({ id: id });
   showTracking();
 };
 
 const complete = async () => {
-  await store.completed({id: id});
+  await store.completed({ id: id });
   showTracking();
-  alert("Task Completed!");
-  router.push({name: "express"});
+  alert('Task Completed!');
+  router.push({ name: 'express' });
 };
 
 const show = () => {
@@ -53,7 +53,7 @@ const showTracking = async () => {
   const response = await store.all(id.value);
   console.log('Tracking data:', response.data);
   data.value = response.data || [];
-}
+};
 
 const isShow = () => {
   if (!document.querySelector('#' + props.id)) {
@@ -77,45 +77,49 @@ defineExpose({
   show,
   hide,
   toggle,
-  updateContent
+  updateContent,
 });
 </script>
 
 <template>
-  <div ref="offcanvasRef" class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvas"
-       aria-labelledby="offcanvasLabel">
-
+  <div
+    id="offcanvas"
+    ref="offcanvasRef"
+    class="offcanvas offcanvas-bottom"
+    tabindex="-1"
+    aria-labelledby="offcanvasLabel"
+  >
     <div class="offcanvas-body small">
       <!-- Package Information Section -->
       <div class="package-info">
         <!-- Package ID and Status -->
         <div class="d-flex justify-content-between align-items-center pb-3">
-          <span class="label"><strong>Package's number:</strong><br>{{data.number}}</span>
-          <span class="value">{{data.status}}</span>
+          <span class="label"><strong>Package's number:</strong><br />{{ data.number }}</span>
+          <span class="value">{{ data.status }}</span>
         </div>
 
         <!-- Vendor and Customer Names -->
         <div class="d-flex justify-content-between align-items-center pb-3">
-          <span class="label">{{data.vendor?.business_name}}</span>
+          <span class="label">{{ data.vendor?.business_name }}</span>
           <font-awesome-icon :icon="['fas', 'greater-than']" class="arrow-icon" />
-          <span class="label">{{data.customer?.last_name}} {{data.customer?.last_name}}</span>
+          <span class="label">{{ data.customer?.last_name }} {{ data.customer?.last_name }}</span>
         </div>
 
         <!-- Contact Numbers -->
         <div class="d-flex justify-content-between align-items-center pb-3">
           <div>
             <p class="label">Sender's Number</p>
-            <p class="data">{{data.vendor?.contact_number}}</p>
+            <p class="data">{{ data.vendor?.contact_number }}</p>
           </div>
           <div>
             <p class="label">Receiver's Number</p>
-            <p class="data">{{data.customer?.phone}}</p>
+            <p class="data">{{ data.customer?.phone }}</p>
           </div>
         </div>
 
         <!-- Location -->
         <div class="info-row pb-3">
-          <span class="label">Location: {{data.location?.location}}</span>
+          <span class="label">Location: {{ data.customer?.address }}</span>
         </div>
         <!--
         <div class="pb-3">
@@ -139,18 +143,14 @@ defineExpose({
           </el-select>
         </div>
         -->
-        <div class="pb-3">
-          Package cost: {{data.price}}
-        </div>
-        <div class="pb-3">
-          Delivery Fee: {{data.shipment?.delivery_fee}}
-        </div>
+        <div class="pb-3">Package cost: {{ data.package?.price }}</div>
+        <div class="pb-3">Delivery Fee: {{ data.package?.delivery_fee }}</div>
 
         <!-- View Details Button -->
         <div class="details-button-container pb-3 d-flex justify-content-between align-items-center gap-3">
           <button class="cancel" @click="hide">Cancel</button>
-          <button v-if="!isPickedUp" @click="pickup" class="details-button">Pick up</button>
-          <button v-if="isPickedUp" @click="complete" class="details-button">Complete</button>
+          <button v-if="!isPickedUp" class="details-button" @click="pickup">Pick up</button>
+          <button v-if="isPickedUp" class="details-button" @click="complete">Complete</button>
         </div>
       </div>
     </div>
@@ -158,7 +158,6 @@ defineExpose({
 </template>
 
 <style scoped>
-
 /* Optional custom styles for bottom-offcanvas */
 .offcanvas-bottom {
   top: auto;
@@ -196,7 +195,8 @@ defineExpose({
 
   .details-button-container {
     text-align: center;
-    .details-button, .cancel {
+    .details-button,
+    .cancel {
       background-color: #007bff;
       color: #fff;
       padding: 0.5rem 1rem;
@@ -252,10 +252,10 @@ defineExpose({
         width: 100%;
         font-size: 0.9rem;
       }
-      .cancel{
+      .cancel {
         width: 100%;
         font-size: 0.9rem;
-        background-color: #6C6C6C;
+        background-color: #6c6c6c;
       }
     }
   }
@@ -286,17 +286,18 @@ defineExpose({
     }
 
     .details-button-container {
-      .details-button, .cancel {
+      .details-button,
+      .cancel {
         padding: 0.4rem;
       }
     }
   }
 }
-.data{
-  color: #6C6C6C;
+.data {
+  color: #6c6c6c;
   padding: 5px;
 }
-.value{
+.value {
   padding: 0.5rem;
   color: rgba(255, 189, 100, 1);
   background-color: rgba(255, 190, 100, 0.1);
