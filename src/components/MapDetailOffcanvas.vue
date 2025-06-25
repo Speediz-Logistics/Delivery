@@ -11,6 +11,7 @@ const router = useRouter();
 const offcanvasRef = ref();
 let bsOffcanvas = null;
 const expressStore = useExpressStore();
+const id = ref(0);
 
 const props = defineProps({
   id: { type: String, default: 'offcanvas' }, // Default id as 'offcanvas'
