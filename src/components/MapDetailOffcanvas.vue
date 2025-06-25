@@ -3,28 +3,30 @@ import { Offcanvas } from 'bootstrap';
 import { onMounted, onUnmounted, ref, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useMapStore } from '@/store/map.js';
+import { useExpressStore } from '@/store/expresss.js';
 const store = useMapStore();
 const data = ref({});
 const route = useRoute();
 const router = useRouter();
 const offcanvasRef = ref();
 let bsOffcanvas = null;
-const id = ref(0);
+const expressStore = useExpressStore();
 
 const props = defineProps({
   id: { type: String, default: 'offcanvas' }, // Default id as 'offcanvas'
 });
 
 const isPickedUp = ref(false);
+const { pickup, completed } = expressStore;
 
-const pickup = async () => {
+const pickupBtn = async () => {
   isPickedUp.value = true; // Disable "Pick up" and show "Complete"
-  await store.pickup({ id: id });
+  await pickup({ id: id });
   showTracking();
 };
 
-const complete = async () => {
-  await store.completed({ id: id });
+const completeBtn = async () => {
+  await completed({ id: id });
   showTracking();
   alert('Task Completed!');
   router.push({ name: 'express' });
@@ -149,8 +151,8 @@ defineExpose({
         <!-- View Details Button -->
         <div class="details-button-container pb-3 d-flex justify-content-between align-items-center gap-3">
           <button class="cancel" @click="hide">Cancel</button>
-          <button v-if="!isPickedUp" class="details-button" @click="pickup">Pick up</button>
-          <button v-if="isPickedUp" class="details-button" @click="complete">Complete</button>
+          <button v-if="!isPickedUp" class="details-button" @click="pickupBtn">Pick up</button>
+          <button v-if="isPickedUp" class="details-button" @click="completeBtn">Complete</button>
         </div>
       </div>
     </div>
