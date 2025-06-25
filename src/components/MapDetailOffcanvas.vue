@@ -22,12 +22,12 @@ const { pickup, completed } = expressStore;
 
 const pickupBtn = async () => {
   isPickedUp.value = true; // Disable "Pick up" and show "Complete"
-  await pickup({ id: id });
+  await pickup({ id: id.value });
   showTracking();
 };
 
 const completeBtn = async () => {
-  await completed({ id: id });
+  await completed({ id: id.value });
   showTracking();
   alert('Task Completed!');
   router.push({ name: 'express' });
