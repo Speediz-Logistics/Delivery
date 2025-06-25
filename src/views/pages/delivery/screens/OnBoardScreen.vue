@@ -2,9 +2,9 @@
  <div class="screen d-flex flex-column">
    <div class="d-flex gap-3 align-items-center justify-content-between">
      <div class="d-flex flex-row align-items-center justify-content-between gap-3">
-       <img src="@/assets/images/speediz-logo.png" alt="profile">
+       <img src="@/assets/images/profile.jpg" alt="profile">
        <div>
-         <div>Name: {{ data.driver_name }}</div>
+         <div>Name: Yong </div>
          <div class="address-text my-2">Address: {{ currentLocation }}</div>
        </div>
      </div>
