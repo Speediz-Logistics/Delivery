@@ -8,23 +8,23 @@ const store = useExpressStore();
 const data = ref([]);
 const currentPage = ref(1);
 const totalPages = ref(1);
-const searchQuery = ref("")
+const searchQuery = ref('');
 
-const fetchExpress = async (page=1, search)     => {
+const fetchExpress = async (page = 1, search) => {
   try {
     const params = {
       page,
-      search: search?? searchQuery.value,
+      search: search ?? searchQuery.value,
     };
     const response = await store.fetchExpress(params);
     if (response && response.data) {
       data.value = response.data.data[Object.keys(response.data.data)[0]]; // Access data dynamically
       totalPages.value = response.data.last_page; // Set the total number of pages
     } else {
-      console.error("No data found");
+      console.error('No data found');
     }
   } catch (error) {
-    console.error("Error fetching express data:", error);
+    console.error('Error fetching express data:', error);
   }
 };
 // Search handler
@@ -33,13 +33,13 @@ const handleSearch = () => {
 };
 //backhome
 const backTo = () => {
-  router.push({name: 'onboard-Screen'})
-}
+  router.push({ name: 'onboard-Screen' });
+};
 
 //viewDetail
 const handleTracking = (id) => {
-  router.push({name: 'map', params: { id }})
-}
+  router.push({ name: 'map', params: { id } });
+};
 
 onMounted(() => {
   fetchExpress();
@@ -56,11 +56,11 @@ onMounted(() => {
   </div>
   <!-- Input Section -->
   <div class="input-section">
-    <input v-model="searchQuery" placeholder="Enter package number" class="input-field" @keyup.enter="handleSearch"/>
+    <input v-model="searchQuery" placeholder="Enter package number" class="input-field" @keyup.enter="handleSearch" />
   </div>
   <!-- Package Information Section -->
   <div class="express-container">
-    <div class="package-info" v-for="(info, index) in data" :key="index">
+    <div v-for="(info, index) in data" :key="index" class="package-info">
       <!-- Package ID and Status -->
       <div class="d-flex justify-content-between align-items-center pb-3">
         <span class="label">{{ info.number }}</span>
@@ -69,31 +69,31 @@ onMounted(() => {
 
       <!-- Vendor and Customer Names -->
       <div class="d-flex justify-content-between align-items-center pb-3">
-        <span class="label">{{info.vendor?.business_name}}</span>
+        <span class="label">{{ info.vendor?.business_name }}</span>
         <font-awesome-icon :icon="['fas', 'greater-than']" class="arrow-icon" />
-        <span class="label">{{info.customer?.first_name}}  {{info.customer?.first_name}}</span>
+        <span class="label">{{ info.customer?.first_name }} {{ info.customer?.first_name }}</span>
       </div>
 
       <!-- Contact Numbers -->
       <div class="d-flex justify-content-between align-items-center pb-3">
         <div>
           <p class="label">Sender's Number</p>
-          <p class="data">{{info.vendor?.contact_number}}</p>
+          <p class="data">{{ info.vendor?.contact_number }}</p>
         </div>
         <div>
           <p class="label">Receiver's Number</p>
-          <p class="data">{{info.customer?.phone}}</p>
+          <p class="data">{{ info.customer?.phone }}</p>
         </div>
       </div>
 
       <!-- Location -->
       <div class="info-row pb-3">
-        <span class="label">Location: {{info.location?.location}}</span>
+        <span class="label">Location: {{ info.location?.location }}</span>
       </div>
 
       <!-- View Details Button -->
       <div class="details-button-container pb-3">
-        <button class="details-button"  @click="handleTracking(info.id)">View Details</button>
+        <button class="details-button" @click="handleTracking(info.number)">View Details</button>
       </div>
     </div>
   </div>
@@ -282,11 +282,11 @@ onMounted(() => {
     }
   }
 }
-.data{
-  color: #6C6C6C;
+.data {
+  color: #6c6c6c;
   padding: 5px;
 }
-.value{
+.value {
   padding: 0.5rem;
   color: rgba(255, 189, 100, 1);
   background-color: rgba(255, 190, 100, 0.1);

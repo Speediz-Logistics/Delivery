@@ -12,8 +12,14 @@
        <font-awesome-icon :icon="['fas', 'bell']" />
      </div>
    </div>
-   <div>
+   <div class="d-flex gap-1 align-items-center justify-content-between">
      <input v-model="searchQuery" placeholder="Enter package number" @keyup.enter="handleSearch"/>
+      <el-button type="primary" @click="handleSearch">
+        <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+      </el-button>
+     <el-button type="success" @click="fetchPackage(1, searchQuery)">
+        <font-awesome-icon :icon="['fas', 'sync']" />
+     </el-button>
    </div>
    <div class="navigate d-flex justify-content-center align-items-center gap-3">
      <Button class="text-center w-25" @click="handleExpress">
@@ -69,6 +75,7 @@ import { useRouter } from 'vue-router';
 import { useHomeStore } from "@/store/home.js";
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
+import { ElMessage } from 'element-plus';
 
 const router = useRouter();
 const searchQuery = ref("");

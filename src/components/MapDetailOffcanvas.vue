@@ -152,8 +152,10 @@ defineExpose({
         <!-- View Details Button -->
         <div class="details-button-container pb-3 d-flex justify-content-between align-items-center gap-3">
           <button class="cancel" @click="hide">Cancel</button>
-          <button v-if="!isPickedUp" class="details-button" @click="pickupBtn">Pick up</button>
-          <button v-if="isPickedUp" class="details-button" @click="completeBtn">Complete</button>
+          <div class="d-flex w-100">
+            <button v-if="!isPickedUp" class="details-button" @click="pickupBtn">Pick up</button>
+            <button v-if="isPickedUp" class="details-button" @click="completeBtn">Complete</button>
+          </div>
         </div>
       </div>
     </div>

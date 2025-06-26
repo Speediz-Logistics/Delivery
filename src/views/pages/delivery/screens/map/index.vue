@@ -1,5 +1,5 @@
 <script setup>
-import Map from "@/components/Map.vue";
+import Map from '@/components/Map.vue';
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 

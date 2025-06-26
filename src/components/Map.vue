@@ -15,14 +15,14 @@ const { post } = useTrackingStore();
 
 const offcanvasRef = ref(null); // Reference to MapOffcanvas
 const route = useRoute();
-const id = route.params.id;
+const { id } = route.params;
 const { all } = useMapStore();
 const search = ref('');
-const res = ref(null);
+const res = ref('');
 const location = ref({
-    lat: 11.550330240451537,
-    lng: 104.94225625451682,
-  });
+  lat: 11.550330240451537,
+  lng: 104.94225625451682,
+});
 const props = defineProps({
   lat: {
     type: Number,
@@ -138,7 +138,8 @@ const postTracking = async (data) => {
 };
 
 onMounted(async () => {
-  handleMap();
+  search.value = id || '';
+  handleSubmitSearch();
 });
 </script>
 
@@ -148,8 +149,8 @@ onMounted(async () => {
       v-if="res"
       class="btn btn-primary offcanvas-btn d-flex align-items-center gap-1"
       type="button"
-      @click="toggleOffcanvas"
       style="position: absolute; top: 100px; left: 20px; z-index: 10"
+      @click="toggleOffcanvas"
     >
       <el-icon><InfoFilled /></el-icon>
       <span>info</span>
